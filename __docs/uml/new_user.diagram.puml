@@ -1,0 +1,41 @@
+@startuml
+
+class User {
+    - userId
+    - firstName
+    - lastName
+    - email
+    - birthday
+}
+
+class UserModel {
+    - create(User)
+}
+
+class UserFactory {
+    + static fromArray(array $user):User
+}
+
+class UserValidation {
+    User user
+    Array<ValidationResult> error
+    // true se tutto l'oggetto è corretto
+    // false se ho un errore
+    bool isValid 
+    + UserValidation(User user)
+    + validate();
+    - isRequiredFirstName()
+    - isRequiredLastName()
+    - isRequiredEmail() 
+    + getIsValid()
+    + getError():array<ValidationResult>
+}
+
+class ValidationResult {
+    + ValidationResult($message,$isValid,$value)
+    + message: string
+    + isValid: bool
+    + value: any
+}
+
+@enduml
