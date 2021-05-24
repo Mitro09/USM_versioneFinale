@@ -19,7 +19,7 @@ if($_SERVER['REQUEST_METHOD']==='GET'){
     list($email,$emailClass,$emailClassMessage,$emailMessage) = ValidationFormHelper::getDefault();
     list($birthday,$birthdayClass,$birthdayClassMessage,$birthdayMessage) = ValidationFormHelper::getDefault();  
     list($password,$passwordClass,$passwordClassMessage,$passwordMessage) = ValidationFormHelper::getDefault();
-    $hobby = new HobbyModel();
+    $hobbyModel = new HobbyModel();
 }
 
 if ($_SERVER['REQUEST_METHOD']==='POST') {
@@ -31,6 +31,8 @@ if ($_SERVER['REQUEST_METHOD']==='POST') {
     $emailValidation = $val->getError('email');
     $birthdayValidation = $val->getError('birthday');
     $passwordValidation = $val->getError('password');
+    $hobby = $hobbyModel->readOneHobby($_POST['interessi']);
+
 
     list($firstName, $firstNameClass, $firstNameClassMessage, $firstNameMessage) = ValidationFormHelper::getValidationClass($firstNameValidation);
     list($lastName, $lastNameClass, $lastNameClassMessage, $lastNameMessage) = ValidationFormHelper::getValidationClass($lastNameValidation);
@@ -45,6 +47,7 @@ if ($_SERVER['REQUEST_METHOD']==='POST') {
         // TODO
         $userModel = new UserModel();
         $userModel->create($user);
+        $hobbyModel->addHobby($user,$hobby);
         header('location: ./list_users.php');
     }
 }

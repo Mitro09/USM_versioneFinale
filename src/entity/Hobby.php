@@ -15,4 +15,8 @@ class Hobby{
     public function getInteresse(){
         return $this->nomeInteresse;
     }
+
+    public function getInteressiId(){
+        return $this->interessiId;
+    }
 }
