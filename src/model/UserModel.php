@@ -108,7 +108,8 @@ class UserModel
 
     public function delete(int $user_id):bool
     {
-        $sql = "delete from User where userId=:user_id ";
+        $sql = "DELETE from user_interessi where userId=:user_id;
+                DELETE from User where userId=:user_id ;";
         
         $pdostm = $this->conn->prepare($sql);
         $pdostm->bindValue(':user_id',$user_id,PDO::PARAM_INT);

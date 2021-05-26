@@ -23,7 +23,8 @@ class HobbyModel
     }
 
     public function readHobby(){
-        $pdostm = $this->conn->prepare('SELECT * from interessi;');
+        $pdostm = $this->conn->prepare('SELECT * from interessi
+                                        ORDER BY InteressiId;');
         $pdostm->execute();
         $result= $pdostm->fetchAll(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE,Hobby::class,['','']);
         //print_r($result);
@@ -41,7 +42,7 @@ class HobbyModel
     }
 
     public function addHobby(int $userId, int $hobbyId){
-        $hobbyModel = new HobbyModel();
+        //$hobbyModel = new HobbyModel();
         //$interesse = $hobbyModel->readOneHobby($hobby);
         $pdostm = $this->conn->prepare('INSERT INTO user_interessi (userId, interessiId) VALUES (:userId, :interessiId);');
         $pdostm->bindValue(':userId', $userId,PDO::PARAM_INT );
