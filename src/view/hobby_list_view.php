@@ -5,7 +5,7 @@
 
 <div class="container">
 <div class="border p-3 my-3">
-<a class="btn btn-primary" href="./add_user_form.php">add new hobby</a>
+<a class="btn btn-primary" href="#">add new hobby</a>
 <a class="btn btn-primary" href="./list_users.php">Lista User</a>
 
 </div>
