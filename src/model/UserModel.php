@@ -35,6 +35,8 @@ class UserModel
             $pdostm->bindValue(':password',md5($user->getPassword()),PDO::PARAM_STR);
 
             $pdostm->execute();
+            //$lastId = $this->conn->lastInsertId();
+            //return $lastId;
         } catch (\PDOException $e) {
             // TODO: Evitare echo
             echo $e->getMessage();
@@ -67,6 +69,9 @@ class UserModel
             echo " ". $th->getMessage();
             //throw $th;
         }
+    }
+    public function getLastId(){
+        return ((int) $this->conn->lastInsertId());
     }
 
     public function readDataLogin($email){

@@ -15,4 +15,4 @@ https://www.edureka.co/blog/decrypt-md5-password-PHP/
     - [ ]  form inserisco email/username / password
     - [ ]  implementare **UserModel::autenticate($username,$password):?User**
     - [ ]  se l'utente esiste accedo all'elenco degli utenti
-ppp
+

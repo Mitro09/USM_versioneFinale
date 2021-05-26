@@ -69,20 +69,25 @@
              </div>
 
 
-             <div class="form-group">
+             
+
+
+            <!-- quando gli utenti vengono creati non hanno ancora un id, quindi non ha bisogno del campo nascosto -->
+             <?php if(!isset($userId)) { ?>
+
+               <div class="form-group">
                 <label for="">interesse</label>
                 <select name="interessi">
                    <option value = "">--scegli interesse--</option>
-                   <?php foreach ($hobby->readHobby() as $interesse){
-                      $output=$interesse->getInteresse()?>
-                     <option value="<?=$output?>"><?=$output?></option>
+                   <?php foreach ($hobbyModel->readHobby() as $interesse){
+                      $output=$interesse->getInteresse();
+                      $id=$interesse->getInteressiId()?>
+                     <option value="<?=$id?>"><?=$output?></option>
                    <?php } ?>    
                 </select>
              </div>
 
-
-            <!-- quando gli utenti vengono creati non hanno ancora un id, quindi non ha bisogno del campo nascosto -->
-             <?php if(isset($userId)) { ?>
+             <?php } else { ?>
                <!-- invece quando sono in modifica di un utente -->
                <div class="form-group mt-4 p-4 border border-danger">
                <label class="text-danger">

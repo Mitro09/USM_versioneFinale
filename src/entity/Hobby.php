@@ -3,7 +3,7 @@ namespace sarassoroberto\usm\entity;
 
 class Hobby{
 
-    private $interessiId;
+    private $InteressiId;
     private $nomeInteresse;
 
 
@@ -17,6 +17,6 @@ class Hobby{
     }
 
     public function getInteressiId(){
-        return $this->interessiId;
+        return $this->InteressiId;
     }
 }

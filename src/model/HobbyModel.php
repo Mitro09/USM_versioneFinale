@@ -25,7 +25,9 @@ class HobbyModel
     public function readHobby(){
         $pdostm = $this->conn->prepare('SELECT * from interessi;');
         $pdostm->execute();
-        return $pdostm->fetchAll(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE,Hobby::class,['','']);
+        $result= $pdostm->fetchAll(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE,Hobby::class,['','']);
+        //print_r($result);
+        return $result;
 
     }
 
@@ -38,25 +40,12 @@ class HobbyModel
         return count($result) === 0 ? null : $result[0];
     }
 
-    public function addHobby(User $user, Hobby $hobby){
-        try{
-        $pdostm = $this->conn->prepare('CREATE table if not exists User_Interessi (
-                                            userId int(10),
-                                            interessiId int(10),
-                                            FOREIGN KEY (userId) REFERENCES User(userId),
-                                            FOREIGN KEY (interessiId) REFERENCES Interessi(InteressiId));
-                                        
-                                        INSERT INTO User_Interessi (userId,interessiId)
-                                        VALUES (:userId,:interessiId);');
-        $pdostm->bindValue(':userId',$user->getUserId(),PDO::PARAM_INT);
-        $pdostm->bindValue(':interessiId',$hobby->getInteressiId(),PDO::PARAM_INT);
+    public function addHobby(int $userId, int $hobbyId){
+        $hobbyModel = new HobbyModel();
+        //$interesse = $hobbyModel->readOneHobby($hobby);
+        $pdostm = $this->conn->prepare('INSERT INTO user_interessi (userId, interessiId) VALUES (:userId, :interessiId);');
+        $pdostm->bindValue(':userId', $userId,PDO::PARAM_INT );
+        $pdostm->bindValue(':interessiId', $hobbyId, PDO::PARAM_INT);
         $pdostm->execute();
-        }
-        catch (\PDOException $e) {
-            // TODO: Evitare echo
-            echo $e->getMessage();
-
-        }
-
     }
 }

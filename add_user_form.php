@@ -10,7 +10,7 @@ require "./__autoload.php";
 /** $action rappresentà l'indirizzo a cui verranno inviati i dati del form */
 $action = './add_user_form.php';
 $submit = 'aggiungi nuovo utente';
-
+$hobbyModel = new HobbyModel();
 if($_SERVER['REQUEST_METHOD']==='GET'){
     
     /** Il form viene compilato "vuoto" */
@@ -19,7 +19,7 @@ if($_SERVER['REQUEST_METHOD']==='GET'){
     list($email,$emailClass,$emailClassMessage,$emailMessage) = ValidationFormHelper::getDefault();
     list($birthday,$birthdayClass,$birthdayClassMessage,$birthdayMessage) = ValidationFormHelper::getDefault();  
     list($password,$passwordClass,$passwordClassMessage,$passwordMessage) = ValidationFormHelper::getDefault();
-    $hobbyModel = new HobbyModel();
+    
 }
 
 if ($_SERVER['REQUEST_METHOD']==='POST') {
@@ -31,8 +31,10 @@ if ($_SERVER['REQUEST_METHOD']==='POST') {
     $emailValidation = $val->getError('email');
     $birthdayValidation = $val->getError('birthday');
     $passwordValidation = $val->getError('password');
-    $hobby = $hobbyModel->readOneHobby($_POST['interessi']);
-
+    //print_r($_POST);
+    $hobby = $_POST['interessi'];
+    //print_r($user->getUserId());
+    
 
     list($firstName, $firstNameClass, $firstNameClassMessage, $firstNameMessage) = ValidationFormHelper::getValidationClass($firstNameValidation);
     list($lastName, $lastNameClass, $lastNameClassMessage, $lastNameMessage) = ValidationFormHelper::getValidationClass($lastNameValidation);
@@ -47,7 +49,8 @@ if ($_SERVER['REQUEST_METHOD']==='POST') {
         // TODO
         $userModel = new UserModel();
         $userModel->create($user);
-        $hobbyModel->addHobby($user,$hobby);
+        $userId = $userModel->getLastId();
+        $hobbyModel->addHobby($userId,$hobby);
         header('location: ./list_users.php');
     }
 }

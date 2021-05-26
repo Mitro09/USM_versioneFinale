@@ -2,11 +2,10 @@
 <?php include './src/view/header.php' ?>
 
 
+
 <div class="container">
 <div class="border p-3 my-3">
-<a class="btn btn-primary" href="./add_user_form.php">add new user</a>
-<a class="btn btn-primary" href="./login_form.php">Login</a>
-<a class="btn btn-primary" href="./hobby_list.php">Vedi hobby</a>
+<a class="btn btn-primary" href="./add_user_form.php">add new hobby</a>
 </div>
 <table class="table">
     <tr>
